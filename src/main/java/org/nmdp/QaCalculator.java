@@ -260,12 +260,14 @@ public class QaCalculator {
 
             NodeList hapElement = element.getElementsByTagName(HAPLOID);
             //There is one haploid
-            Element hla = (Element) hapElement.item(0);
-            String haploid = hla.getAttribute(HAPLOID_Locus) + "*" + hla.getAttribute(HAPLOID_TYPE);
-            pw.print(haploid);
-            pw.print(",");
-            printGls(element);
-            pw.print(",");
+            if (hapElement.getLength() > 0) {
+                Element hla = (Element) hapElement.item(0);
+                String haploid = hla.getAttribute(HAPLOID_Locus) + "*" + hla.getAttribute(HAPLOID_TYPE);
+                pw.print(haploid);
+                pw.print(",");
+                printGls(element);
+                pw.print(",");
+            }
 
             String sequence ;
             NodeList  sequenceList = element.getElementsByTagName(SEQUENCE_BLOCK);
