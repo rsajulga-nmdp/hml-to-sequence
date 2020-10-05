@@ -6,7 +6,7 @@ Requires Java 8 and Maven
 ## Build
 
 ```
-mvn clean build
+mvn clean package
 ```
 
 ## Run
