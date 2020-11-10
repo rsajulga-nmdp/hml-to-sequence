@@ -1,19 +1,23 @@
 package org.nmdp.steps;
 
 import org.hamcrest.Matchers;
-import org.jbehave.core.annotations.Alias;
-import org.jbehave.core.annotations.Composite;
+//import org.jbehave.core.annotations.Alias;
+//import org.jbehave.core.annotations.Composite;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import static org.hamcrest.Matchers.equalTo;
+//import static org.hamcrest.Matchers.equalTo;
 
 public class ParseHmlSteps {
 
 	private Integer test;
+	
+	public ParseHmlSteps() {
+		
+	}
 	
 	@Given("an HML file")
 	public void loadingHmlFile() {
@@ -25,7 +29,7 @@ public class ParseHmlSteps {
 		test = test + 5;
 	}
 	
-	@Then("The resulting output will be 5")
+	@Then("the resulting output will be 5")
 	public void evaluateHmlFile() {
 		assertThat(test, Matchers.equalTo(10));
 	}

@@ -13,12 +13,15 @@ import org.jbehave.core.reporters.CrossReference;
 import org.jbehave.core.reporters.Format;
 import org.jbehave.core.reporters.StoryReporterBuilder;
 import org.jbehave.core.steps.InjectableStepsFactory;
+import org.jbehave.core.steps.InstanceStepsFactory;
 import org.jbehave.web.selenium.ContextView;
 import org.jbehave.web.selenium.LocalFrameContextView;
 import org.jbehave.web.selenium.SeleniumConfiguration;
 import org.jbehave.web.selenium.SeleniumContext;
 import org.jbehave.web.selenium.SeleniumContextOutput;
 import org.jbehave.web.selenium.SeleniumStepMonitor;
+
+import org.nmdp.steps.ParseHmlSteps;
 
 import static java.util.Arrays.asList;
 import static org.jbehave.core.io.CodeLocations.codeLocationFromClass;
@@ -28,12 +31,12 @@ import static org.jbehave.web.selenium.WebDriverHtmlOutput.WEB_DRIVER_HTML;
 public class HmlStories extends JUnitStories {
 	
 	PendingStepStrategy pendingStepStrategy = new FailingUponPendingStep();
-    @SuppressWarnings("deprecation")
+//    @SuppressWarnings("deprecation")
 	CrossReference crossReference = new CrossReference().withJsonOnly().withPendingStepStrategy(pendingStepStrategy)
             .withOutputAfterEachStory(true).excludingStoriesWithNoExecutedScenarios(true);
     ContextView contextView = new LocalFrameContextView().sized(640, 120);
     SeleniumContext seleniumContext = new SeleniumContext();
-    @SuppressWarnings("deprecation")
+//    @SuppressWarnings("deprecation")
 	SeleniumStepMonitor stepMonitor = new SeleniumStepMonitor(contextView, seleniumContext,
             crossReference.getStepMonitor());
     Format[] formats = new Format[] { new SeleniumContextOutput(seleniumContext), CONSOLE, WEB_DRIVER_HTML };
@@ -51,11 +54,12 @@ public class HmlStories extends JUnitStories {
                 .useStoryReporterBuilder(reporterBuilder);
     }
 
-//    @Override
-//    public InjectableStepsFactory stepsFactory() {
+    @Override
+    public InjectableStepsFactory stepsFactory() {
 //        ApplicationContext context = new SpringApplicationContextFactory("etsy-steps.xml").createApplicationContext();
 //        return new SpringStepsFactory(configuration(), context);
-//    }
+    	return new InstanceStepsFactory(configuration(), new ParseHmlSteps());
+    }
 
     @Override
     protected List<String> storyPaths() {
