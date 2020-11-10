@@ -31,12 +31,12 @@ import static org.jbehave.web.selenium.WebDriverHtmlOutput.WEB_DRIVER_HTML;
 public class HmlStories extends JUnitStories {
 	
 	PendingStepStrategy pendingStepStrategy = new FailingUponPendingStep();
-//    @SuppressWarnings("deprecation")
+    @SuppressWarnings("deprecation")
 	CrossReference crossReference = new CrossReference().withJsonOnly().withPendingStepStrategy(pendingStepStrategy)
             .withOutputAfterEachStory(true).excludingStoriesWithNoExecutedScenarios(true);
     ContextView contextView = new LocalFrameContextView().sized(640, 120);
     SeleniumContext seleniumContext = new SeleniumContext();
-//    @SuppressWarnings("deprecation")
+    @SuppressWarnings("deprecation")
 	SeleniumStepMonitor stepMonitor = new SeleniumStepMonitor(contextView, seleniumContext,
             crossReference.getStepMonitor());
     Format[] formats = new Format[] { new SeleniumContextOutput(seleniumContext), CONSOLE, WEB_DRIVER_HTML };
