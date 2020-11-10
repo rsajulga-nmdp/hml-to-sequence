@@ -2,6 +2,7 @@ package org.nmdp;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -23,6 +24,7 @@ public class QaCalculator {
     public double count;
     public int total;
     private PrintWriter pw;
+    private static final String HML = "hml";
     private static final String SAMPLE = "sample";
     private static final String ID = "id";
     private static final String TYPING = "typing";
@@ -35,6 +37,7 @@ public class QaCalculator {
     private static final String HAPLOID_TYPE = "type";
     private static final String HAPLOID_Locus = "locus";
     private String folderName;
+    private String projectName;
 
     public QaCalculator(String folderName){
         this.folderName = folderName;
@@ -46,12 +49,29 @@ public class QaCalculator {
 
         // Initialize doc
         Document doc = getDoc(input);
+        
+        // Check HML tag and obtain project name
+        NodeList hmlTag = doc.getElementsByTagName(HML);
+        if (hmlTag.getLength() != 1) {
+        	System.out.print("The file does not contain only one " + HML + " tag.");
+        }
+        this.projectName = getAttribute((Element) hmlTag.item(0), "project-name");
 
         // Get all sample nodes
         NodeList sampleList = doc.getElementsByTagName(SAMPLE);
         for (int i = 0; i < sampleList.getLength(); i++) {
             parseSample(sampleList.item(i));
         }
+    }
+    
+    /**
+     * Returns the text value of the provided attribute.
+     *
+     * @param el The element containing the provided attribute.
+     * @param attribute The provided attribute.
+     */
+    private String getAttribute(Element el, String attribute) {
+    	return el.getAttribute(attribute);
     }
 
     /**
@@ -92,12 +112,9 @@ public class QaCalculator {
             printFirstGls(glsArray, element, sampleID);
             printSecondGls(glsArray, element, sampleID);
         }else {
-            //one gls
-            //print header
-            pw.print(folderName);
-            pw.print(",");
-            pw.print(sampleID);
-            pw.print(",");
+            //one gl
+        	printHeader(sampleID);
+        	
             pw.print("alleleOne");
             pw.print(",");
 
@@ -176,10 +193,7 @@ public class QaCalculator {
         return gls;
     }
     private void printFirstGls(String[] gls, Element element, String sampleID){
-        pw.print(folderName);
-        pw.print(",");
-        pw.print(sampleID);
-        pw.print(",");
+    	printHeader(sampleID);
 
         if(gls[0].equals(gls[1])){
             pw.print("Homozygous1");
@@ -211,10 +225,7 @@ public class QaCalculator {
     }
 
     private void printSecondGls(String[] gls, Element element, String sampleID) {
-        pw.print(folderName);
-        pw.print(",");
-        pw.print(sampleID);
-        pw.print(",");
+    	printHeader(sampleID);
 
         if(gls[0].equals(gls[1])){
             pw.print("Homozygous2");
@@ -225,6 +236,7 @@ public class QaCalculator {
         }
 
         pw.print(gls[1]);
+        
         pw.print(",");
         printGls(element);
         pw.print(",");
@@ -242,6 +254,15 @@ public class QaCalculator {
 
         pw.println(sequence);
     }
+    
+    private void printHeader(String sampleID) {
+        pw.print(folderName);
+        pw.print(",");
+        pw.print(projectName);
+        pw.print(",");
+        pw.print(sampleID);
+        pw.print(",");
+    }
 
     private void parseHap(Element element, String sampleID) {
         if(twoHap(element)){
@@ -250,10 +271,7 @@ public class QaCalculator {
             printSecondHap(hapArray, element, sampleID);
         }else {
             //one haploid
-            pw.print(folderName);
-            pw.print(",");
-            pw.print(sampleID);
-            pw.print(",");
+        	printHeader(sampleID);
 
             pw.print("alleleOne");
             pw.print(",");
@@ -282,10 +300,7 @@ public class QaCalculator {
     }
 
     private void printSecondHap(String[] hapArray, Element element, String sampleID) {
-        pw.print(folderName);
-        pw.print(",");
-        pw.print(sampleID);
-        pw.print(",");
+    	printHeader(sampleID);
 
         pw.print("allele2");
         pw.print(",");
@@ -307,10 +322,7 @@ public class QaCalculator {
     }
 
     private void printFirstHap(String[] hapArray, Element element, String sampleID) {
-        pw.print(folderName);
-        pw.print(",");
-        pw.print(sampleID);
-        pw.print(",");
+    	printHeader(sampleID);
 
         pw.print("allele1");
         pw.print(",");
