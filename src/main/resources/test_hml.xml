@@ -24,7 +24,7 @@
                     <reference-sequence id="ref2" name="HLA-A*99:02"/>
                 </reference-database>
                 <consensus-sequence-block reference-sequence-id="ref1">
-                    <sequence>SDF:LKJDNB</sequence>
+                    <sequence>ATATAT</sequence>
                 </consensus-sequence-block>
                 <consensus-sequence-block reference-sequence-id="ref2">
                     <sequence>TATATATATATATATATATATATATA</sequence>
