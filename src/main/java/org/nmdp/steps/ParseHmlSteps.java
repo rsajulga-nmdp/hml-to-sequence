@@ -23,7 +23,7 @@ import org.nmdp.Run;
 public class ParseHmlSteps {
 
 	private String hmlFilepath;
-	private String obsOutfileName;
+	private String obsOutfileName = "obsOutput.txt";
 	
 	public ParseHmlSteps() {
 		
@@ -65,16 +65,16 @@ public class ParseHmlSteps {
 	
 	@When("I want to parse the file for results")
 	public void parseHmlFile() {
-		String filename = "obsOutput.txt";
-		runHml2Seq(hmlFilepath, filename);
-		obsOutfileName = filename;
+		runHml2Seq(hmlFilepath, obsOutfileName);
 	}
 	
 	@Then("the resulting output will be $expOutfilename")
 	public void evaluateHmlFile(String expOutfilename) {
 		String expOutFilepath = getFilepath(expOutfilename, true);
-		
 		assertThat(readLines(obsOutfileName),
 				Matchers.equalTo(readLines(expOutFilepath)));
+//		
+//		File outFile = new File(obsOutfileName);
+//		outFile.delete();
 	}
 }

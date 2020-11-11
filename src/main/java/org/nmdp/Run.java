@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 
 
 /**
- * Created by wwang
+ * Created by wwang. Updated by rsajulga-nmdp 11/10/2020
  */
 public class Run {
     public static void main(String[] args) {
@@ -29,7 +29,12 @@ public class Run {
         }
 
         QaCalculator qc = new QaCalculator(folder.getName());
+        System.out.println("Parsing through " + inputList.length + " files.");
         for (int i = 0; i < inputList.length; i++) {
+            // if (i % 250 == 0) {
+            //    System.out.println(i);
+            // }
+            // System.out.print('.');
             String fileNameFull = inputList[i].getName().toLowerCase();
             if (fileNameFull.contains("hml") || fileNameFull.contains("xml") || fileNameFull.contains("txt")) {
                 try {

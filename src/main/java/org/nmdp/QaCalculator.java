@@ -38,6 +38,7 @@ public class QaCalculator {
     private static final String HAPLOID_Locus = "locus";
     private String folderName;
     private String projectName;
+    private StringBuilder nameSpace;
 
     public QaCalculator(String folderName){
         this.folderName = folderName;
@@ -50,15 +51,19 @@ public class QaCalculator {
         // Initialize doc
         Document doc = getDoc(input);
         
-        // Check HML tag and obtain project name
-        NodeList hmlTag = doc.getElementsByTagName(HML);
+        // Check HML tag, obtain namespace prefix 
+        NodeList hmlTag = doc.getElementsByTagNameNS("http://schemas.nmdp.org/spec/hml/1.0.1", HML);
+        nameSpace = new StringBuilder(
+                doc.getDocumentElement().getPrefix() != null ? doc.getDocumentElement().getPrefix() + ":" : "");
+        
+        // Obtain project name
         if (hmlTag.getLength() != 1) {
         	System.out.print("The file does not contain only one " + HML + " tag.");
         }
         this.projectName = getAttribute((Element) hmlTag.item(0), "project-name");
 
         // Get all sample nodes
-        NodeList sampleList = doc.getElementsByTagName(SAMPLE);
+        NodeList sampleList = doc.getElementsByTagName(nameSpace + SAMPLE);
         for (int i = 0; i < sampleList.getLength(); i++) {
             parseSample(sampleList.item(i));
         }
@@ -83,7 +88,7 @@ public class QaCalculator {
         Element sample = (Element) node;
         String sampleID = sample.getAttribute(ID);
         // Get all typing nodes
-        NodeList typingList = sample.getElementsByTagName(TYPING);
+        NodeList typingList = sample.getElementsByTagName(nameSpace + TYPING);
         for (int j = 0; j < typingList.getLength(); j++) {
             parseTyping(typingList.item(j), sampleID);
         }
@@ -125,10 +130,10 @@ public class QaCalculator {
             pw.print(",");
 
             String sequence;
-            NodeList  sequenceList = element.getElementsByTagName(SEQUENCE_BLOCK);
+            NodeList  sequenceList = element.getElementsByTagName(nameSpace + SEQUENCE_BLOCK);
             if(sequenceList.getLength() == 1){
                 Element seq = (Element) sequenceList.item(0);
-                sequence = (seq.getElementsByTagName(SEQUENCE).item(0).getTextContent().trim());
+                sequence = (seq.getElementsByTagName(nameSpace + SEQUENCE).item(0).getTextContent().trim());
             }else {
                 sequence = printSequence(element, 0, sequenceList.getLength(), ",");
             }
@@ -175,7 +180,7 @@ public class QaCalculator {
     }
 
     private boolean twoGls(Element element){
-        NodeList glsElement = element.getElementsByTagName(GLString);
+        NodeList glsElement = element.getElementsByTagName(nameSpace + GLString);
         String gls = "";
         if(glsElement.item(0) != null){
             gls = glsElement.item(0).getTextContent().trim();
@@ -186,7 +191,7 @@ public class QaCalculator {
 
     private String getGLString(Element element){
         String gls = "";
-        NodeList glsElement = element.getElementsByTagName(GLString);
+        NodeList glsElement = element.getElementsByTagName(nameSpace + GLString);
         if(glsElement.item(0) != null){
             gls = glsElement.item(0).getTextContent().trim();
         }
@@ -210,12 +215,12 @@ public class QaCalculator {
         pw.print(",");
 
         String sequence;
-        NodeList  sequenceList = element.getElementsByTagName(SEQUENCE_BLOCK);
+        NodeList  sequenceList = element.getElementsByTagName(nameSpace + SEQUENCE_BLOCK);
         if(gls[0].equals(gls[1])){
             sequence = printSequence(element, 0, sequenceList.getLength(), ",");
         }else if(sequenceList.getLength() == 1){
             Element seq = (Element) sequenceList.item(0);
-            sequence = (seq.getElementsByTagName(SEQUENCE).item(0).getTextContent().trim());
+            sequence = (seq.getElementsByTagName(nameSpace + SEQUENCE).item(0).getTextContent().trim());
         }else {
             sequence = printSequence(element, 0, sequenceList.getLength()/2, ",");
         }
@@ -242,12 +247,12 @@ public class QaCalculator {
         pw.print(",");
 
         String sequence;
-        NodeList  sequenceList = element.getElementsByTagName(SEQUENCE_BLOCK);
+        NodeList  sequenceList = element.getElementsByTagName(nameSpace + SEQUENCE_BLOCK);
         if(gls[0].equals(gls[1])){
             sequence = printSequence(element, 0, sequenceList.getLength(), ",");
         }else if (sequenceList.getLength() == 1){
             Element seq = (Element) sequenceList.item(0);
-            sequence = (seq.getElementsByTagName(SEQUENCE).item(0).getTextContent().trim());
+            sequence = (seq.getElementsByTagName(nameSpace + SEQUENCE).item(0).getTextContent().trim());
         }else {
             sequence = printSequence(element, sequenceList.getLength()/2, sequenceList.getLength(), ",");
         }
@@ -276,7 +281,7 @@ public class QaCalculator {
             pw.print("alleleOne");
             pw.print(",");
 
-            NodeList hapElement = element.getElementsByTagName(HAPLOID);
+            NodeList hapElement = element.getElementsByTagName(nameSpace + HAPLOID);
             //There is one haploid
             if (hapElement.getLength() > 0) {
                 Element hla = (Element) hapElement.item(0);
@@ -288,10 +293,10 @@ public class QaCalculator {
             }
 
             String sequence ;
-            NodeList  sequenceList = element.getElementsByTagName(SEQUENCE_BLOCK);
+            NodeList  sequenceList = element.getElementsByTagName(nameSpace + SEQUENCE_BLOCK);
             if(sequenceList.getLength() == 1){
                 Element seq = (Element) sequenceList.item(0);
-                sequence = (seq.getElementsByTagName(SEQUENCE).item(0).getTextContent().trim());
+                sequence = (seq.getElementsByTagName(nameSpace + SEQUENCE).item(0).getTextContent().trim());
             }else {
                 sequence = printSequence(element, 0, sequenceList.getLength(), ",");
             }
@@ -310,10 +315,10 @@ public class QaCalculator {
         pw.print(",");
 
         String sequence;
-        NodeList  sequenceList = element.getElementsByTagName(SEQUENCE_BLOCK);
+        NodeList  sequenceList = element.getElementsByTagName(nameSpace + SEQUENCE_BLOCK);
         if(sequenceList.getLength() == 1){
             Element seq = (Element) sequenceList.item(0);
-            sequence = (seq.getElementsByTagName(SEQUENCE).item(0).getTextContent().trim());
+            sequence = (seq.getElementsByTagName(nameSpace + SEQUENCE).item(0).getTextContent().trim());
         }else {
             sequence = printSequence(element, sequenceList.getLength()/2, sequenceList.getLength(), ",");
         }
@@ -332,10 +337,10 @@ public class QaCalculator {
         pw.print(",");
 
         String sequence;
-        NodeList  sequenceList = element.getElementsByTagName(SEQUENCE_BLOCK);
+        NodeList  sequenceList = element.getElementsByTagName(nameSpace + SEQUENCE_BLOCK);
         if(sequenceList.getLength() == 1){
             Element seq = (Element) sequenceList.item(0);
-            sequence = (seq.getElementsByTagName(SEQUENCE).item(0).getTextContent().trim());
+            sequence = (seq.getElementsByTagName(nameSpace + SEQUENCE).item(0).getTextContent().trim());
         }else {
             sequence = printSequence(element,0, sequenceList.getLength()/2, "," );
         }
@@ -354,10 +359,10 @@ public class QaCalculator {
      */
     private String printSequence(Element element, int startIndex, int stopIndex, String divider){
         StringBuilder sequence = new StringBuilder();
-        NodeList  sequenceList = element.getElementsByTagName(SEQUENCE_BLOCK);
+        NodeList  sequenceList = element.getElementsByTagName(nameSpace + SEQUENCE_BLOCK);
         for(int i = startIndex; i < stopIndex; i++){
             Element seq = (Element) sequenceList.item(i);
-            sequence.append(seq.getElementsByTagName(SEQUENCE).item(0).getTextContent().trim());
+            sequence.append(seq.getElementsByTagName(nameSpace + SEQUENCE).item(0).getTextContent().trim());
             sequence.append(divider);
          }
          //remove the last divider
@@ -366,7 +371,7 @@ public class QaCalculator {
         }
 
     private String[] getHapArray(Element element) {
-        NodeList hapElement = element.getElementsByTagName(HAPLOID);
+        NodeList hapElement = element.getElementsByTagName(nameSpace + HAPLOID);
         //There is two haploids
         Element hla1 = (Element) hapElement.item(0);
         Element hla2 = (Element) hapElement.item(1);
@@ -377,13 +382,13 @@ public class QaCalculator {
     }
 
     private boolean twoHap(Element element) {
-        NodeList hapElement = element.getElementsByTagName(HAPLOID);
+        NodeList hapElement = element.getElementsByTagName(nameSpace + HAPLOID);
         return hapElement.getLength() == 2;
     }
 
     private void printGls(Element element) {
         if(hasGls(element)){
-            NodeList glsElement = element.getElementsByTagName(GLString);
+            NodeList glsElement = element.getElementsByTagName(nameSpace + GLString);
             String hlaString = "";
             if(glsElement.item(0) != null){
                 hlaString = glsElement.item(0).getTextContent().trim();
@@ -404,7 +409,7 @@ public class QaCalculator {
 
 
     private boolean hasGls(Element element){
-        NodeList glsElement = element.getElementsByTagName(GLString);
+        NodeList glsElement = element.getElementsByTagName(nameSpace + GLString);
         return glsElement.item(0) != null;
     }
 
@@ -424,6 +429,7 @@ public class QaCalculator {
      */
     private Document getDoc(File input) throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        dbFactory.setNamespaceAware(true);
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document doc = dBuilder.parse(input);
         doc.getDocumentElement().normalize();

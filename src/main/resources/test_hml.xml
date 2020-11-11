@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<hml version="1.0.1" project-name="ABDR" xsi:schemaLocation="http://schemas.nmdp.org/spec/hml/1.0.1  http://schemas.nmdp.org/spec/hml/1.0.1/hml-1.0.1.xsd" xmlns:ns2="http://schemas.nmdp.org/spec/hml/1.0.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <property name="GeneratedBy" value="org.nmdp.b2b.hml.service.HMLGatewayService"/>
-    <property name="MessageReceived" value="2999-99-02 00:18:04.115"/>
-    <property name="uploadFileName" value="test.txt"/>
-    <property name="SampleCount" value="19"/>
-    <property name="UUID" value="123456789"/>
-    <hmlid root="123" extension="9876543"/>
-    <reporting-center reporting-center-id="747"/>
-    <sample id="12345678987654321" center-code="001">
-        <collection-method>Buccal Swab</collection-method>
-        <typing gene-family="HLA" date="2999-10-17">
-            <allele-assignment date="2999-10-17" allele-db="IMGT/HLA" allele-version="3.21.0">
-                <glstring>HLA-A*99:02+HLA-A*99:02</glstring>
-            </allele-assignment>
-            <typing-method>
-                <sbt-ngs locus="HLA-A" test-id="NGS-TE" test-id-source="LabCorp"/>
-            </typing-method>
-            <consensus-sequence date="2999-10-17">
-                <reference-database name="IMGT/HLA" version="3.21.0" availability="public">
-                    <reference-sequence id="ref1" name="HLA-A*99:02:01"/>
-                </reference-database>
-                <reference-database name="IMGT/HLA" version="3.21.0" availability="public">
-                    <reference-sequence id="ref2" name="HLA-A*99:02"/>
-                </reference-database>
-                <consensus-sequence-block reference-sequence-id="ref1">
-                    <sequence>ATATAT</sequence>
-                </consensus-sequence-block>
-                <consensus-sequence-block reference-sequence-id="ref2">
-                    <sequence>TATATATATATATATATATATATATA</sequence>
-                </consensus-sequence-block>
-            </consensus-sequence>
-        </typing>
-        <typing gene-family="HLA" date="2999-10-17">
-            <allele-assignment date="2999-10-17" allele-db="IMGT/HLA" allele-version="3.21.0">
-                <glstring>HLA-B*999:02+HLA-B*999:02</glstring>
-            </allele-assignment>
-            <typing-method>
-                <sbt-ngs locus="HLA-B" test-id="NGS-TE" test-id-source="LabCorp"/>
-            </typing-method>
-            <consensus-sequence date="2999-10-17">
-                <reference-database name="IMGT/HLA" version="3.21.0" availability="public">
-                    <reference-sequence id="ref3" name="HLA-B*999:02:01"/>
-                </reference-database>
-                <reference-database name="IMGT/HLA" version="3.21.0" availability="public">
-                    <reference-sequence id="ref4" name="HLA-B*999:02:01"/>
-                </reference-database>
-                <consensus-sequence-block reference-sequence-id="ref3">
-                    <sequence>GCGCGCGCGCGCGCGCGCGCGCGCGC</sequence>
-                </consensus-sequence-block>
-                <consensus-sequence-block reference-sequence-id="ref4">
-                    <sequence>GCGCGCGCGCGCGCGCGCGCGCGCGC</sequence>
-                </consensus-sequence-block>
-            </consensus-sequence>
-        </typing>
-    </sample>
-</hml>
+<ns2:hml version="1.0.1" project-name="ABDR" xsi:schemaLocation="http://schemas.nmdp.org/spec/hml/1.0.1  http://schemas.nmdp.org/spec/hml/1.0.1/hml-1.0.1.xsd" xmlns:ns2="http://schemas.nmdp.org/spec/hml/1.0.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <ns2:property name="GeneratedBy" value="org.nmdp.b2b.hml.service.HMLGatewayService"/>
+    <ns2:property name="MessageReceived" value="2999-99-02 00:18:04.115"/>
+    <ns2:property name="uploadFileName" value="test.txt"/>
+    <ns2:property name="SampleCount" value="19"/>
+    <ns2:property name="UUID" value="123456789"/>
+    <ns2:hmlid root="123" extension="9876543"/>
+    <ns2:reporting-center reporting-center-id="747"/>
+    <ns2:sample id="12345678987654321" center-code="001">
+        <ns2:collection-method>Buccal Swab</ns2:collection-method>
+        <ns2:typing gene-family="HLA" date="2999-10-17">
+            <ns2:allele-assignment date="2999-10-17" allele-db="IMGT/HLA" allele-version="3.21.0">
+                <ns2:glstring>HLA-A*99:02+HLA-A*99:02</ns2:glstring>
+            </ns2:allele-assignment>
+            <ns2:typing-method>
+                <ns2:sbt-ngs locus="HLA-A" test-id="NGS-TE" test-id-source="LabCorp"/>
+            </ns2:typing-method>
+            <ns2:consensus-sequence date="2999-10-17">
+                <ns2:reference-database name="IMGT/HLA" version="3.21.0" availability="public">
+                    <ns2:reference-sequence id="ref1" name="HLA-A*99:02:01"/>
+                </ns2:reference-database>
+                <ns2:reference-database name="IMGT/HLA" version="3.21.0" availability="public">
+                    <ns2:reference-sequence id="ref2" name="HLA-A*99:02"/>
+                </ns2:reference-database>
+                <ns2:consensus-sequence-block reference-sequence-id="ref1">
+                    <ns2:sequence>ATATAT</ns2:sequence>
+                </ns2:consensus-sequence-block>
+                <ns2:consensus-sequence-block reference-sequence-id="ref2">
+                    <ns2:sequence>TATATATATATATATATATATATATA</ns2:sequence>
+                </ns2:consensus-sequence-block>
+            </ns2:consensus-sequence>
+        </ns2:typing>
+        <ns2:typing gene-family="HLA" date="2999-10-17">
+            <ns2:allele-assignment date="2999-10-17" allele-db="IMGT/HLA" allele-version="3.21.0">
+                <ns2:glstring>HLA-B*999:02+HLA-B*999:02</ns2:glstring>
+            </ns2:allele-assignment>
+            <ns2:typing-method>
+                <ns2:sbt-ngs locus="HLA-B" test-id="NGS-TE" test-id-source="LabCorp"/>
+            </ns2:typing-method>
+            <ns2:consensus-sequence date="2999-10-17">
+                <ns2:reference-database name="IMGT/HLA" version="3.21.0" availability="public">
+                    <ns2:reference-sequence id="ref3" name="HLA-B*999:02:01"/>
+                </ns2:reference-database>
+                <ns2:reference-database name="IMGT/HLA" version="3.21.0" availability="public">
+                    <ns2:reference-sequence id="ref4" name="HLA-B*999:02:01"/>
+                </ns2:reference-database>
+                <ns2:consensus-sequence-block reference-sequence-id="ref3">
+                    <ns2:sequence>GCGCGCGCGCGCGCGCGCGCGCGCGC</ns2:sequence>
+                </ns2:consensus-sequence-block>
+                <ns2:consensus-sequence-block reference-sequence-id="ref4">
+                    <ns2:sequence>GCGCGCGCGCGCGCGCGCGCGCGCGC</ns2:sequence>
+                </ns2:consensus-sequence-block>
+            </ns2:consensus-sequence>
+        </ns2:typing>
+    </ns2:sample>
+</ns2:hml>
