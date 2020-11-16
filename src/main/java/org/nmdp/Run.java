@@ -31,10 +31,10 @@ public class Run {
         QaCalculator qc = new QaCalculator(folder.getName());
         System.out.println("Parsing through " + inputList.length + " files.");
         for (int i = 0; i < inputList.length; i++) {
-            // if (i % 250 == 0) {
-            //    System.out.println(i);
-            // }
-            // System.out.print('.');
+             if (i % 1000 == 0) {
+                System.out.println(i);
+             }
+             System.out.print('.');
             String fileNameFull = inputList[i].getName().toLowerCase();
             if (fileNameFull.contains("hml") || fileNameFull.contains("xml") || fileNameFull.contains("txt")) {
                 try {
