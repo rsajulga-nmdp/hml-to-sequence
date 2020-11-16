@@ -14,7 +14,7 @@
                 <ns2:glstring>HLA-A*99:02+HLA-A*99:02</ns2:glstring>
             </ns2:allele-assignment>
             <ns2:typing-method>
-                <ns2:sbt-ngs locus="HLA-A" test-id="NGS-TE" test-id-source="LabCorp"/>
+                <ns2:sbt-ngs locus="HLA-A" test-id="NGS-method" test-id-source="LabX"/>
             </ns2:typing-method>
             <ns2:consensus-sequence date="2999-10-17">
                 <ns2:reference-database name="IMGT/HLA" version="3.21.0" availability="public">
@@ -36,7 +36,7 @@
                 <ns2:glstring>HLA-B*999:02+HLA-B*999:02</ns2:glstring>
             </ns2:allele-assignment>
             <ns2:typing-method>
-                <ns2:sbt-ngs locus="HLA-B" test-id="NGS-TE" test-id-source="LabCorp"/>
+                <ns2:sbt-ngs locus="HLA-B" test-id="NGS-method2" test-id-source="LabY"/>
             </ns2:typing-method>
             <ns2:consensus-sequence date="2999-10-17">
                 <ns2:reference-database name="IMGT/HLA" version="3.21.0" availability="public">

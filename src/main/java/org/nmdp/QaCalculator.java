@@ -36,6 +36,9 @@ public class QaCalculator {
     private static final String HAPLOID = "haploid";
     private static final String HAPLOID_TYPE = "type";
     private static final String HAPLOID_Locus = "locus";
+    private static final String TYPING_METHOD = "sbt-ngs";
+    private static final String HAPLOID_METHOD = "test-id";
+    private static final String HAPLOID_SOURCE= "test-id-source";
     private String folderName;
     private String projectName;
     private StringBuilder nameSpace;
@@ -118,7 +121,7 @@ public class QaCalculator {
             printSecondGls(glsArray, element, sampleID);
         }else {
             //one gl
-        	printHeader(sampleID);
+        	printHeader(element, sampleID);
         	
             pw.print("alleleOne");
             pw.print(",");
@@ -198,7 +201,7 @@ public class QaCalculator {
         return gls;
     }
     private void printFirstGls(String[] gls, Element element, String sampleID){
-    	printHeader(sampleID);
+    	printHeader(element, sampleID);
 
         if(gls[0].equals(gls[1])){
             pw.print("Homozygous1");
@@ -230,7 +233,7 @@ public class QaCalculator {
     }
 
     private void printSecondGls(String[] gls, Element element, String sampleID) {
-    	printHeader(sampleID);
+    	printHeader(element, sampleID);
 
         if(gls[0].equals(gls[1])){
             pw.print("Homozygous2");
@@ -260,12 +263,23 @@ public class QaCalculator {
         pw.println(sequence);
     }
     
-    private void printHeader(String sampleID) {
+    private void printHeader(Element element, String sampleID) {
         pw.print(folderName);
         pw.print(",");
         pw.print(projectName);
         pw.print(",");
         pw.print(sampleID);
+        pw.print(",");
+        NodeList typingMethodList = element.getElementsByTagName(nameSpace + TYPING_METHOD);
+        String haploidMethod = "", haploidSource = "";
+        if (typingMethodList.getLength() > 0) {
+        	Element typingMethod = (Element) typingMethodList.item(0);
+        	haploidMethod = typingMethod.getAttribute(HAPLOID_METHOD);
+        	haploidSource = typingMethod.getAttribute(HAPLOID_SOURCE);
+        }
+        pw.print(haploidMethod);
+        pw.print(",");
+        pw.print(haploidSource);
         pw.print(",");
     }
 
@@ -276,7 +290,7 @@ public class QaCalculator {
             printSecondHap(hapArray, element, sampleID);
         }else {
             //one haploid
-        	printHeader(sampleID);
+        	printHeader(element, sampleID);
 
             pw.print("alleleOne");
             pw.print(",");
@@ -305,7 +319,7 @@ public class QaCalculator {
     }
 
     private void printSecondHap(String[] hapArray, Element element, String sampleID) {
-    	printHeader(sampleID);
+    	printHeader(element, sampleID);
 
         pw.print("allele2");
         pw.print(",");
@@ -327,7 +341,7 @@ public class QaCalculator {
     }
 
     private void printFirstHap(String[] hapArray, Element element, String sampleID) {
-    	printHeader(sampleID);
+    	printHeader(element, sampleID);
 
         pw.print("allele1");
         pw.print(",");
